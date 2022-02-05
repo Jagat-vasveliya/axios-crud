@@ -1,0 +1,12 @@
+.show-data{
+     display: flex;
+     width: 100%;
+     height: fit-content;
+     justify-content: center;
+     padding: 10px;
+}
+table,tr,th,td{
+     padding: 10px;
+     border-spacing: 0;
+     border: 1px solid white;
+}

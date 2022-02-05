@@ -1,0 +1,36 @@
+.main {
+	display: flex;
+}
+.sidebar {
+	word-wrap: break-word;
+	min-height: 100vh;
+	min-width: 15vw;
+	box-shadow: -3px 5px 10px black;
+}
+.menu-list {
+	margin: 0;
+	padding: 0;
+}
+.list-item{
+	list-style-type: none;
+	padding: 10px;
+	cursor: pointer;
+}
+.menu-name {
+	font-family: "Roboto", "Arial", sans-serif;
+	font-size: 1.4rem;
+	line-height: 2rem;
+	font-weight: 500;
+}
+.list-item:hover {
+	background-color: #383838;
+}
+a {
+	display: block;
+	width: 100%;
+	text-decoration: none;
+	color: white;
+}
+.active{
+	background-color: #383838;
+}
