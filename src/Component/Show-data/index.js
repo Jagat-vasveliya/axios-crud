@@ -12,7 +12,6 @@ export default function ShowData() {
 		});
 	}, []);
 
-	console.log(userData);
 	const displayData = userData.map((data) => {
 		return (
 			<tr>
@@ -22,21 +21,32 @@ export default function ShowData() {
 				<td>{data.age}</td>
 				<td>{data.gender}</td>
 				<td>{data.hobbies}</td>
+				<td>
+					<button className="btn btn-update">Update</button>
+				</td>
+				<td>
+					<button className="btn btn-delete">Delete</button>
+				</td>
 			</tr>
 		);
 	});
 
 	return (
 		<div className="show-data">
+			<div>
+				<h1>User Information</h1>
+			</div>
 			<table>
 				<thead>
 					<tr>
-						<td>Id</td>
-						<td>First name</td>
-						<td>Last name</td>
-						<td>Age</td>
-						<td>Gender</td>
-						<td>Hobbies</td>
+						<th>Id</th>
+						<th>First name</th>
+						<th>Last name</th>
+						<th>Age</th>
+						<th>Gender</th>
+						<th>Hobbies</th>
+						<th>Update</th>
+						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody>{displayData}</tbody>

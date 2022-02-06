@@ -1,12 +1,41 @@
 .show-data{
      display: flex;
+     flex-direction: column;
      width: 100%;
-     height: fit-content;
+     align-items: center;
      justify-content: center;
      padding: 10px;
 }
-table,tr,th,td{
-     padding: 10px;
+table,td, th{
+     text-align: center;
      border-spacing: 0;
      border: 1px solid white;
+}
+th{
+     font-weight: bold;
+}
+td, th{
+     padding: 15px;
+}
+.btn{
+     font-size: 20px;
+     border: none;
+     padding: 10px;
+     color: white;
+     border-radius: 10px;
+     cursor: pointer;
+}
+.btn-update{
+     background-color: #051094;
+}
+.btn-delete{
+     background-color: #a30000;
+}
+.btn-delete:hover{
+     background-color: #d9381e;
+     box-shadow: 0px 0px 10px black;
+}
+.btn-update:hover{
+     background-color: #3944BC;
+     box-shadow: 0px 0px 10px black;
 }

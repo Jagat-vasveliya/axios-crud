@@ -2,9 +2,9 @@
 	display: flex;
 }
 .sidebar {
-	word-wrap: break-word;
 	min-height: 100vh;
 	min-width: 15vw;
+	/* position: fixed; */
 	box-shadow: -3px 5px 10px black;
 }
 .menu-list {
