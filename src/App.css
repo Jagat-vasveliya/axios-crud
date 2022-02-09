@@ -1,6 +1,6 @@
 .App {
-	background-color: #212121;
 	min-height: 100vh;
+	background-color: #212121;
 	font-size: calc(10px + 2vmin);
 	color: white;
 }

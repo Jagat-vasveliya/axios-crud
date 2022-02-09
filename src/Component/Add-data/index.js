@@ -1,24 +1,50 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 export default function AddData() {
+	const reDiract = useNavigate();
 	const [data, setData] = useState({
 		firstName: "",
 		lastName: "",
 		age: "",
 		gender: "",
 		hobbies: {
-			devloping: false,
-			listingMusic: false,
-			playingGames: false,
-			justChilling: true,
+			ListingMusic: false,
+			Devloping: false,
+			PlayingGames: false,
+			JustChilling: false,
 		},
 	});
 	const setValue = (event) => {
-		const { name, value } = event.target;
-		const setHobbies = data.hobbies;
-		console.log(setHobbies[{name}])
-		setData((prevState) => ({ ...prevState, [name]: value }));
+		const { name, value, type } = event.target;
+		if (type === "checkbox") {
+			const hobbies = { ...data.hobbies };
+			hobbies[name] = event.target.checked;
+			setData((prevState) => ({ ...prevState, hobbies }));
+		} else {
+			setData((prevState) => ({ ...prevState, [name]: value }));
+		}
+	};
+	const addData = (event) => {
+		event.preventDefault();
+		const url =
+			"https://61fe43c7a58a4e00173c97b0.mockapi.io/userInformation";
+		axios({
+			method: "post",
+			url: url,
+			data: {
+				id: null,
+				firstName: data.firstName,
+				lastName: data.lastName,
+				gender: data.gender,
+				age: data.age,
+				hobbies: data.hobbies,
+			},
+		}).then((respone) => {
+			reDiract("/showData");
+		});
 	};
 	return (
 		<div className="Add-data">
@@ -26,7 +52,7 @@ export default function AddData() {
 				<h1>Add Data</h1>
 			</div>
 			<div className="Add-form">
-				<form>
+				<form onSubmit={addData}>
 					<div className="form-control">
 						<label htmlFor="firstName" className="label">
 							First name
@@ -39,6 +65,7 @@ export default function AddData() {
 							value={data.firstName}
 							placeholder="First name"
 							onChange={setValue}
+							required
 						/>
 					</div>
 					<div className="form-control">
@@ -53,6 +80,7 @@ export default function AddData() {
 							value={data.lastName}
 							placeholder="Last name"
 							onChange={setValue}
+							required
 						/>
 					</div>
 					<div className="form-control">
@@ -67,6 +95,7 @@ export default function AddData() {
 							value={data.age}
 							placeholder="Age"
 							onChange={setValue}
+							required
 						/>
 					</div>
 					<div className="form-control">
@@ -78,6 +107,14 @@ export default function AddData() {
 								type="radio"
 								name="gender"
 								id="male"
+								value="Male"
+								checked={
+									data.gender === "Male"
+										? true
+										: false
+								}
+								onChange={setValue}
+								required
 							/>
 							<label htmlFor="male" className="label">
 								Male
@@ -86,6 +123,14 @@ export default function AddData() {
 								type="radio"
 								name="gender"
 								id="female"
+								value="Female"
+								checked={
+									data.gender === "Female"
+										? true
+										: false
+								}
+								onChange={setValue}
+								required
 							/>
 							<label htmlFor="female" className="label">
 								Female
@@ -99,21 +144,9 @@ export default function AddData() {
 						<div className="custom">
 							<input
 								type="checkbox"
-								name="devloping"
-								id="devloping"
-								checked={data.hobbies.devloping}
-								onChange={setValue}
-							/>
-							<label htmlFor="devloping" className="label">
-								Devloping
-							</label>
-						</div>
-						<div className="custom">
-							<input
-								type="checkbox"
-								name="listingMusic"
+								name="ListingMusic"
 								id="listingMusic"
-								checked={data.hobbies.listingMusic}
+								checked={data.hobbies.ListingMusic}
 								onChange={setValue}
 							/>
 							<label
@@ -126,9 +159,21 @@ export default function AddData() {
 						<div className="custom">
 							<input
 								type="checkbox"
-								name="playingGames"
+								name="Devloping"
+								id="Devloping"
+								checked={data.hobbies.Devloping}
+								onChange={setValue}
+							/>
+							<label htmlFor="Devloping" className="label">
+								Devloping
+							</label>
+						</div>
+						<div className="custom">
+							<input
+								type="checkbox"
+								name="PlayingGames"
 								id="playingGames"
-								checked={data.hobbies.playingGames}
+								checked={data.hobbies.PlayingGames}
 								onChange={setValue}
 							/>
 							<label
@@ -141,9 +186,9 @@ export default function AddData() {
 						<div className="custom">
 							<input
 								type="checkbox"
-								name="justChilling"
+								name="JustChilling"
 								id="justChilling"
-								checked={data.hobbies.justChilling}
+								checked={data.hobbies.JustChilling}
 								onChange={setValue}
 							/>
 							<label
@@ -156,8 +201,11 @@ export default function AddData() {
 					</div>
 					<hr />
 					<div className="submit-area">
-						<button className="btn-submit" type="button">
-							Submit
+						<button
+							className="btn-submit"
+							type="submit"
+						>
+							Add
 						</button>
 					</div>
 				</form>

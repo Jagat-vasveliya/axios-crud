@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function ShowData() {
 	const [userData, setuserData] = useState([]);
 	useEffect(() => {
-		axios.get(
-			"https://61fe43c7a58a4e00173c97b0.mockapi.io/userInformation"
-		).then((response) => {
-			setuserData(response.data);
-		});
+		setData();
 	}, []);
+	const setData = async () => {
+		const response = await axios.get(
+			`https://61fe43c7a58a4e00173c97b0.mockapi.io/userInformation`
+		);
+		setuserData(response.data);
+	};
 
 	const displayData = userData.map((data) => {
+		let hobbiesData = data.hobbies;
+		let displayHobbies = "";
+		Object.keys(hobbiesData).map((key) =>
+			hobbiesData[key] === true ? (displayHobbies += key + ", ") : ""
+		);
+		displayHobbies = displayHobbies.replace(/,\s*$/, "");
+		if (displayHobbies === "") {
+			displayHobbies = "No hobbies";
+		}
 		return (
 			<tr>
 				<td>{data.id}</td>
@@ -20,9 +32,10 @@ export default function ShowData() {
 				<td>{data.lastName}</td>
 				<td>{data.age}</td>
 				<td>{data.gender}</td>
-				<td>{data.hobbies}</td>
+				<td>{displayHobbies}</td>
 				<td>
-					<button className="btn btn-update">Update</button>
+					<Link to={`/Update/${data.id}`}>
+					<button className="btn btn-update">Update</button></Link>
 				</td>
 				<td>
 					<button className="btn btn-delete">Delete</button>
