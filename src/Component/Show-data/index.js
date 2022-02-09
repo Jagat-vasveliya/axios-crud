@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ShowData() {
+	const reDiract = useNavigate();
 	const [userData, setuserData] = useState([]);
 	useEffect(() => {
 		setData();
@@ -14,7 +15,16 @@ export default function ShowData() {
 		);
 		setuserData(response.data);
 	};
-
+	const deleteData = (id) => {
+		if (window.confirm("Are you sure you want to delete it ?")) {
+			axios({
+				method: "DELETE",
+				url: `https://61fe43c7a58a4e00173c97b0.mockapi.io/userInformation/${id}`,
+			}).then((respone) => {
+				setData();
+			});
+		}
+	};
 	const displayData = userData.map((data) => {
 		let hobbiesData = data.hobbies;
 		let displayHobbies = "";
@@ -35,10 +45,17 @@ export default function ShowData() {
 				<td>{displayHobbies}</td>
 				<td>
 					<Link to={`/Update/${data.id}`}>
-					<button className="btn btn-update">Update</button></Link>
+						<button className="btn btn-update">Update</button>
+					</Link>
 				</td>
 				<td>
-					<button className="btn btn-delete">Delete</button>
+					<button
+						type="button"
+						className="btn btn-delete"
+						onClick={() => deleteData(data.id)}
+					>
+						Delete
+					</button>
 				</td>
 			</tr>
 		);
