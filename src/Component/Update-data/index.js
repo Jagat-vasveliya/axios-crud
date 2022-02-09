@@ -19,10 +19,13 @@ export default function UpdateData() {
 		},
 	});
 	const setuserData = async () => {
-		const response = await axios.get(
+		axios.get(
 			`https://61fe43c7a58a4e00173c97b0.mockapi.io/userInformation/${id}`
-		);
-		setData(response.data);
+		)
+			.then((response) => {
+				setData(response.data);
+			})
+			.catch((err) => reDiract("/showData"));
 	};
 	useEffect(() => {
 		setuserData();
@@ -39,8 +42,7 @@ export default function UpdateData() {
 	};
 	const updateData = (event) => {
 		event.preventDefault();
-		const url =
-			`https://61fe43c7a58a4e00173c97b0.mockapi.io/userInformation/${id}`;
+		const url = `https://61fe43c7a58a4e00173c97b0.mockapi.io/userInformation/${id}`;
 		axios({
 			method: "put",
 			url: url,
